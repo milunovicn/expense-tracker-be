@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 export class Service {
   constructor(private jwtService: JwtService) {}
 
+  // TODO: Implement when user service is done
   async login(username: string, password: string) {
     // const user = this.usersService.findByUsername(username);
 
@@ -17,9 +18,5 @@ export class Service {
     // return {
     //   access_token: this.jwtService.sign(payload),
     // };
-  }
-
-  getHello(): string {
-    return 'Hello World!';
   }
 }
