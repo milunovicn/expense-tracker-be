@@ -1,11 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
-import { UserService } from './user.service';
+import * as nstCommon from '@nestjs/common';
+import { Service } from './user.service';
 
-@Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@nstCommon.Controller('user')
+export class Controller {
+  constructor(private readonly userService: Service) {}
 
-  @Get()
+  @nstCommon.Get()
   getHello(): string {
     return this.userService.getHello();
   }
