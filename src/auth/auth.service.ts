@@ -7,6 +7,8 @@ export class Service {
   constructor(private jwtService: JwtService) {}
 
   // TODO: Implement when user service is done
+  // TODO: Change to structured parameter e.g { username: string; password: string }
+  // TODO: Add proper return type and proper type for params
   async login(username: string, password: string) {
     // const user = this.usersService.findByUsername(username);
 
