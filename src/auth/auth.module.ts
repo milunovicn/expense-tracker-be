@@ -1,15 +1,17 @@
-import * as nstCommon from '@nestjs/common';
+import * as nCommon from '@nestjs/common';
 import { Controller } from './auth.controller';
 import { Service } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import * as user from '../user'
+import { JwtStrategy } from './jwt.strategy';
 
-@nstCommon.Module({
+@nCommon.Module({
   imports: [JwtModule.register({
       secret: 'super-secret-key',
       signOptions: { expiresIn: '1h' },
-    }), PassportModule],
+    }), PassportModule, user.Module],
   controllers: [Controller],
-  providers: [Service],
+  providers: [Service, JwtStrategy],
 })
 export class Module {}

@@ -1,10 +1,11 @@
-import * as nstCommon from '@nestjs/common';
+import * as nCommon from '@nestjs/common';
 import { Controller } from './user.controller';
 import { Service } from './user.service';
 
-@nstCommon.Module({
+@nCommon.Module({
   imports: [],
   controllers: [Controller],
   providers: [Service],
+  exports: [Service],
 })
 export class Module {}

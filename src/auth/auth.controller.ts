@@ -1,12 +1,13 @@
-import * as nstCommon from '@nestjs/common';
+import * as nCommon from '@nestjs/common';
 import { Service } from './auth.service';
+import * as models from '../models'
 
-@nstCommon.Controller()
+@nCommon.Controller()
 export class Controller {
   constructor(private readonly authService: Service) {}
   
-  @nstCommon.Post('login')
-  login(@nstCommon.Body() { username, password }: { username: string; password: string }) {
-    return this.authService.login(username, password);
+  @nCommon.Post('login')
+  login(@nCommon.Body() { username, password }: models.entities.User.Credentials) {
+    return this.authService.login({ username, password });
   }
 }
