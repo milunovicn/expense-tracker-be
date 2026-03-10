@@ -6,8 +6,12 @@ import * as models from '../models'
 export class Controller {
   constructor(private readonly authService: Service) {}
   
+  // NOTE: We don't actually take hashed password from the frontend because
+  // HTPPS encrypts the whole request anyway
   @nCommon.Post('login')
   login(@nCommon.Body() { username, password }: models.entities.User.Credentials) {
     return this.authService.login({ username, password });
   }
+
+  // TODO: Registration
 }

@@ -7,6 +7,8 @@ import * as user from '../user'
 import { JwtStrategy } from './jwt.strategy';
 
 @nCommon.Module({
+  // TODO: Move secret to .env file, this should not be hardcoded in the
+  // codebase, especially for production versions
   imports: [JwtModule.register({
       secret: 'super-secret-key',
       signOptions: { expiresIn: '1h' },
