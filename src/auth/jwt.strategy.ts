@@ -11,8 +11,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  // This method is called when the user signs in, and the JWT is validated. The payload is the decoded JWT payload.
+  // This method is called when the user request is protected by authentication.
+  // The payload is the decoded JWT.
+  // NOTE: This method returns the object because we trust the JWT token, but
+  // ideally we should check if that user exists in the database and return the
+  // user object, but for simplicity we will just return the payload as the user
+  // object.
+  // NOTE: We could also just put id into the jwt, and then fetch the user from
+  // the database in the validate method
   async validate(payload: models.JwtPayload) {
-    return { userId: payload.userId, username: payload.username };
+    return { userId: payload.userId, username: payload.username }
   }
 }
