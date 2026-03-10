@@ -12,6 +12,10 @@ export class Service implements models.service.Service<models.entities.User>{
     private usersRepository: Repository<models.entities.User>
   ) {}
 
+  async list(): Promise<models.entities.User[]> {
+    return this.usersRepository.find();
+  }
+
   async get(id: number): Promise<models.entities.User | null> {
     const user = await this.usersRepository.findOne({ where: { id } })
     if(!user) {

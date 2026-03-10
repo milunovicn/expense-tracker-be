@@ -8,6 +8,12 @@ import * as models from '../models'
 export class Controller {
   constructor(private readonly userService: Service) {}
 
+    @nCommon.UseGuards(JwtAuthGuard)
+  @nCommon.Get()
+  list(): Promise<models.entities.User[]> {
+    return this.userService.list();
+  }
+
   @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get(':id')
   get(@nCommon.Param('id') id: number): Promise<models.entities.User | null> {
