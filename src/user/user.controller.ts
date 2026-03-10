@@ -8,6 +8,12 @@ import * as models from '../models'
 export class Controller {
   constructor(private readonly userService: Service) {}
 
+  @nCommon.UseGuards(JwtAuthGuard)
+  @nCommon.Get()
+  list(): Promise<models.entities.User[]> {
+    return this.userService.list();
+  }
+
   // TODO: We should probably just return some UserDTO which wouldn't send
   // password to the frontend, but for simplicity we will just return the whole
   // user object for now
