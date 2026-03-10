@@ -1,6 +1,7 @@
 import * as nCommon from '@nestjs/common';
 import { Service } from './user.service';
 import { JwtAuthGuard } from '../auth/auth.guard';
+import * as models from '../models'
 
 // TODO: Create an interface that all controllers should implement
 @nCommon.Controller('user')
@@ -9,7 +10,13 @@ export class Controller {
 
   @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get(':id')
-  get(@nCommon.Param('id') id: string): object | undefined {
+  get(@nCommon.Param('id') id: number): Promise<models.entities.User | null> {
     return this.userService.get(id);
   }
+
+  @nCommon.Post()
+  register(user: models.entities.User): void {
+    // TODO: Registration logic
+  }
+
 }

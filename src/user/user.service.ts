@@ -1,21 +1,30 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import * as models from '../models'
 
-
-const USERS: models.entities.User[] = [
-  { id: '1', username: 'testuser', password: 'hashedpassword', email: 'testuser@example.com' },
-  { id: '2', username: 'anotheruser', password: 'anotherhashedpassword', email: 'anotheruser@example.com' }
-]
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class Service implements models.service.Service<models.entities.User>{
 
-  // TODO: Implement user service method, add proper return type
-  get(id: string): models.entities.User | undefined {
-    return USERS.find(user => user.id === id)
+  constructor(
+    @InjectRepository(models.entities.User)
+    private usersRepository: Repository<models.entities.User>
+  ) {}
+
+  async get(id: number): Promise<models.entities.User | null> {
+    const user = await this.usersRepository.findOne({ where: { id } })
+    if(!user) {
+      throw new NotFoundException('User not found')
+    }
+    return user
   }
 
-  getByUsername(username: string): models.entities.User | undefined {
-    return USERS.find(user => user.username === username)
+  async getByUsername(username: string): Promise<models.entities.User | null> {
+    const user = await this.usersRepository.findOne({ where: { username } })
+    if(!user) {
+      throw new NotFoundException('User not found')
+    }
+    return user
   }
 }
