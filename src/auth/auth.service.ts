@@ -9,14 +9,11 @@ import * as authModels from './models'
 export class Service {
   constructor(private jwtService: JwtService, private usersService: user.Service) {}
 
-  // TODO: Implement when user service is done
-  // TODO: Add proper return type and proper type for params
   async login({username, password}: models.entities.User.Credentials) {
     const user = await this.usersService.getByUsername(username);
 
-    // TODO: Hashing password comparison
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid username or password');
     }
 
     const payload: authModels.JwtPayload = { userId: user.id, username: user.username };

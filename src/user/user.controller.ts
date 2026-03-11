@@ -14,9 +14,7 @@ export class Controller {
     return this.userService.list();
   }
 
-  // TODO: We should probably just return some UserDTO which wouldn't send
-  // password to the frontend, but for simplicity we will just return the whole
-  // user object for now
+
   @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get(':id')
   get(@nCommon.Param('id') id: number): Promise<models.entities.User.DTO | null> {
