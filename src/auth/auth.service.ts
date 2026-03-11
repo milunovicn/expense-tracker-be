@@ -13,11 +13,9 @@ export class Service {
   // TODO: Add proper return type and proper type for params
   async login({username, password}: models.entities.User.Credentials) {
     const user = await this.usersService.getByUsername(username);
-    // TODO: remove this, this is just for testing purposes, until we connect this to db and we actually create hashed passwords
-    const hashedPassword = await bcrypt.hash(user?.password, 10);
 
     // TODO: Hashing password comparison
-    if (!user || !(await bcrypt.compare(password, hashedPassword))) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException();
     }
 

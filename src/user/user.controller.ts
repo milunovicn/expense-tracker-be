@@ -8,21 +8,24 @@ import * as models from '../models'
 export class Controller {
   constructor(private readonly userService: Service) {}
 
-    @nCommon.UseGuards(JwtAuthGuard)
+  @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get()
-  list(): Promise<models.entities.User[]> {
+  list(): Promise<models.entities.User.DTO[]> {
     return this.userService.list();
   }
 
+  // TODO: We should probably just return some UserDTO which wouldn't send
+  // password to the frontend, but for simplicity we will just return the whole
+  // user object for now
   @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get(':id')
-  get(@nCommon.Param('id') id: number): Promise<models.entities.User | null> {
+  get(@nCommon.Param('id') id: number): Promise<models.entities.User.DTO | null> {
     return this.userService.get(id);
   }
 
-  @nCommon.Post()
-  register(user: models.entities.User): void {
-    // TODO: Registration logic
+  @nCommon.Post('register')
+  create(@nCommon.Body() user: models.entities.User.ForCreate): Promise<models.entities.User.DTO> {
+    return this.userService.create(user)
   }
 
 }
