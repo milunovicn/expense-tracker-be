@@ -10,7 +10,7 @@ export class Controller {
 
   @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get()
-  list(): Promise<models.entities.User[]> {
+  list(): Promise<models.entities.User.DTO[]> {
     return this.userService.list();
   }
 
@@ -19,13 +19,13 @@ export class Controller {
   // user object for now
   @nCommon.UseGuards(JwtAuthGuard)
   @nCommon.Get(':id')
-  get(@nCommon.Param('id') id: number): Promise<models.entities.User | null> {
+  get(@nCommon.Param('id') id: number): Promise<models.entities.User.DTO | null> {
     return this.userService.get(id);
   }
 
   @nCommon.Post('register')
-  create(@nCommon.Body() user: models.entities.User.ForCreate): void {
-    this.userService.create(user)
+  create(@nCommon.Body() user: models.entities.User.ForCreate): Promise<models.entities.User.DTO> {
+    return this.userService.create(user)
   }
 
 }

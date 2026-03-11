@@ -12,6 +12,4 @@ export class Controller {
   login(@nCommon.Body() { username, password }: models.entities.User.Credentials) {
     return this.authService.login({ username, password });
   }
-
-  // TODO: Registration
 }
