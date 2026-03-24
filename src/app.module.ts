@@ -9,7 +9,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // for deployed versions, local testing versions are fine to have it in the
 // repo, but we should be careful about that
 @Module({
-  imports: [user.Module, auth.Module, TypeOrmModule.forRoot({
+  imports: [user.Module,
+    auth.Module,
+    // TODO: Find a way to make a connection to database more flexible, so that
+    // we can run the application without the DB actually existing, since this
+    // connection is needed for the application to start, but we want to be able
+    // to run it without the DB for testing purposes, etc.
+    TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5432,
@@ -20,6 +26,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: false,
     }),],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
